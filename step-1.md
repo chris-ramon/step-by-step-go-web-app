@@ -84,31 +84,31 @@ import (
 	"net/http"
 )
 
-func rootHandler(w http.ResponseWriter, r *http.Request) {
+func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Store App!"))
 }
 
 func main() {
 	log.Println("server running on :8080")
-	http.HandleFunc("/", rootHandler)
+	http.HandleFunc("/", IndexHandler)
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 ```
 
 ###### Explicación:
 ```
-http.HandleFunc("/", rootHandler)
+http.HandleFunc("/", IndexHandler)
 ```
 
-Usamos la función `http.HandleFunc` para definir la ruta y la función que se ejecuta cuando existe una petición para la misma, definimos como primer argumento `"/"` que indica la raíz del servidor web y como segundo argumento `rootHandler` que es la función que se ejecutará cuando existan peticiones del tipo: `http://localhost:8080/` .
+Usamos la función `http.HandleFunc` para definir la ruta y la función que se ejecuta cuando existe una petición para la misma, definimos como primer argumento `"/"` que indica la raíz del servidor web y como segundo argumento `IndexHandler` que es la función que se ejecutará cuando existan peticiones del tipo: `http://localhost:8080/` .
 
 ```
-func rootHandler(w http.ResponseWriter, r *http.Request) {
+func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Store App!"))
 }
 ```
 
-Definimos la función `rootHandler`, el tiene como parámetros: 
+Definimos la función `IndexHandler`, el tiene como parámetros: 
 - `w http.ResponseWriter` -- Lo usamos para escribir la respuesta a una petición.
 - `r *http.Request` -- Lo usaremos para obtener información sobre una petición.
 
