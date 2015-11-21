@@ -11,7 +11,7 @@ Empecemos!
 ***
 
 Creamos el directorio de nuestro proyecto, llamado `store` (tienda) y seguidamente creamos el archivo principal de nuestro programa, el cual llamaremos `main.go`, este contendrá el código de nuestro programa que se ejecutará primero.
-```
+```bash
 mkdir store && cd $_ && touch main.go
 ```
 ##### Explicación:
@@ -25,7 +25,7 @@ touch main.go -- Crea el archivo `main.go`
 ***
 
 A continuación creamos el servidor web principal de nuestra aplicación, agregamos el siguiente código al archivo `main.go`.
-```
+```go
 package main
 
 import (
@@ -39,7 +39,7 @@ func main() {
 }
 ```
 ##### Explicación:
-```
+```go
 package main
 ```
 
@@ -48,7 +48,7 @@ pertenece al paquete `main`.
 
 > Todos los programas en Go tienen un paquete `main` (`package main`) y dentro una función `main` (`func main`), los cuales indican el inicio de ejecución de nuestro programa.
 
-```
+```go
 import (
 	"log"
 	"net/http"
@@ -58,7 +58,7 @@ import (
 Importamos otros paquetes usando el keyword `import`, en este caso importamos dos paquetes de la biblioteca estándar de Go: `log` y `net/http`.
 
 
-```
+```go
 func main() {
     log.Println("server running on :8080")
     log.Fatal(http.ListenAndServe(":8080", nil))
@@ -76,7 +76,7 @@ Finalmente usamos `http.ListenAndServe` para iniciar el servidor web de nuestra 
 
 A continuación agregamos la ruta principal de nuestro servidor web y la función que se encarga de resolver la misma.
 
-```
+```go
 package main
 
 import (
@@ -96,13 +96,13 @@ func main() {
 ```
 
 ###### Explicación:
-```
+```go
 http.HandleFunc("/", IndexHandler)
 ```
 
 Usamos la función `http.HandleFunc` para definir la ruta y la función que se ejecuta cuando existe una petición para la misma, definimos como primer argumento `"/"` que indica la raíz del servidor web y como segundo argumento `IndexHandler` que es la función que se ejecutará cuando existan peticiones del tipo: `http://localhost:8080/` .
 
-```
+```go
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Store App!"))
 }
@@ -119,7 +119,7 @@ Finalmente, la función `w.Write` recibe como argumento `bytes`, deseamos escrib
 ***
 
 Es hora de ejecutar nuestro programa `store`
-```
+```go
 go run main.go
 ```
 
