@@ -3,7 +3,7 @@
 En esta segunda parte:
 
 - Extenderemos el `IndexHandler` para que pueda responder `html` en vez de `text`.
-- Aprenderemos sobre el manejo de errores, la estructura de datos `map`.
+- Aprenderemos sobre el control de errores y la estructura de datos `map`.
 
 ```go
 package main
@@ -46,16 +46,17 @@ import (
 )
 ```
 
-Agregamos el paquete `text/template` de la biblioteca estándar de Go, el cuál usaremos
-para hacer escribir `html` en `w http.ResponseWriter` de `IndexHandler`.
+Agregamos el paquete `text/template` de la biblioteca estándar de Go, el cual usaremos
+para hacer escribir `html` en la variable `w http.ResponseWriter` dentro de la
+función `IndexHandler`.
 
 ```go
 html := "<h1>{{.Title}}<h1/>"
 ```
 
-Declaramos e inicializamos la variable `html`, el cual tiene solo una etiqueta `h1`
-y dentro una variable `.Title` que será reemplazado por un valor arbitrario que
-definiremos seguidamente.
+Declaramos e inicializamos la variable `html`, la cual tiene solo una etiqueta `h1`
+y dentro una variable `.Title` que será reemplazada por un valor arbitrario que
+definiremos luego.
 
 > También podemos declarar e inicializar la variable previa de las siguientes formas:
 
@@ -70,7 +71,7 @@ t, err := template.New("index").Parse(html)
 ```
 
 Usamos la función `New` para crear un nuevo `template` llamado `index` y
-`Parse` para convertir el string `<h1>{{.Title}}<h1/>` a una instancia `Template`.
+`Parse` para convertir el string `<h1>{{.Title}}<h1/>` a una instancia del tipo `Template`.
 
 ```go
 t, err := template.New("index").Parse(html)
@@ -82,18 +83,17 @@ if err != nil {
 
 El segundo valor que retorna `Parse` es del tipo `error`,
 usamos la sentencia `if` para saber si contiene un valor,
-si este es `nil` quiere decir que no hubo error al ejecutar
+si este es `nil` quiere decir que no hubo error al ejecutarse
 la función `Parse`.
 
 Si existe un error, entonces usamos `log.Printf` para escribir
 en la terminal el mensaje: “failed to parse index template, error: %v”
 (falló cuando se intento analizar el template index, error: [aquí ira el mensaje de error]).
 
-> Usamos `log.Printf` cuando queremos agregar valores a variables que
-estan dentro del string que deseamos imprimir en la terminal.
-
-> En cambio usamos `log.Println` si solo deseamos escribir un string
-en la terminal.
+> Usamos:
+> `log.Println` para escribir en el `standard error` por defecto.
+> `log.Printf` similar a `log.Println` más la posibilidad de dar formato al string
+> y reemplazar variables por valores.
 
 ```go
 data := map[string]string{
@@ -104,9 +104,6 @@ data := map[string]string{
 Usamos la estructura de datos del tipo `map` para crear una variable `data`
 que contendrá llaves y valores del tipo `string`.
 
-Usaremos esta variable para ejecutar y escribir el valor
-de la variable `html` que definimos previamente.
-
 ```go
 if err := t.Execute(w, data); err != nil {
     log.Printf("failed to execute index template, error: %v", err)
@@ -115,10 +112,8 @@ if err := t.Execute(w, data); err != nil {
 ```
 
 Usamos la función `Execute` para escribir en `w http.ResponseWriter` el
-resultado de ejecutar el `template` `t`, usamos como context la
-variable `data`, las variables previamente definidas dentro de
-la variable `html` serán reemplazadas por las variables
-del `map` data.
+resultado de ejecutar el `template` `t`, usamos como contexto de la ejecución
+la variable `data`, entonces `{{.Title}}` será reemplazado por `Store App! :)`.
 
 ***
 
@@ -136,7 +131,11 @@ go run main.go
 
 Seguidamente realizamos una petición web a nuestro servidor, para ello usamos el comando `curl`.
 
-##### Terminal
+```
+curl http://localhost:8080/
+```
+
+###### Terminal
 
 ```bash
 <h1>Store App! :)<h1/>
