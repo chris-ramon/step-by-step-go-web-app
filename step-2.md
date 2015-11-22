@@ -46,9 +46,9 @@ import (
 )
 ```
 
-Agregamos el paquete `text/template` de la biblioteca estándar de Go, el cual usaremos
-para hacer escribir `html` en la variable `w http.ResponseWriter` dentro de la
-función `IndexHandler`.
+Agregamos el paquete `text/template` de la biblioteca estándar de Go, usaremos
+varias funciones de este paquete para que `IndexHandler` pueda emitir
+`html` en vez de `text`.
 
 ```go
 html := "<h1>{{.Title}}<h1/>"
