@@ -3,7 +3,7 @@
 En esta segunda parte:
 
 - Extenderemos el `IndexHandler` para que pueda responder `html` en vez de `text`.
-- Aprenderemos sobre el manejo de errores, la estructura de datos `map`
+- Aprenderemos sobre el manejo de errores, la estructura de datos `map`.
 
 ```go
 package main
@@ -58,10 +58,10 @@ y dentro una variable `.Title` que será reemplazado por un valor arbitrario que
 definiremos seguidamente.
 
 > También podemos declarar e inicializar la variable previa de las siguientes formas:
-> var html string = "<h1>{{.Title}}<h1/>"
+> var html string = "&lt;h1&gt;{{.Title}}&lt;h1&gt;"
 >
 > `var html string`
-> html = "<h1>{{.Title}}<h1/>"
+> html = "&lt;h1&gt;{{.Title}}&lt;h1&gt;"
 
 ```go
 t, err := template.New("index").Parse(html)
