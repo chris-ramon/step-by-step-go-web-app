@@ -58,17 +58,19 @@ y dentro una variable `.Title` que será reemplazado por un valor arbitrario que
 definiremos seguidamente.
 
 > También podemos declarar e inicializar la variable previa de las siguientes formas:
-> var html string = "&lt;h1&gt;{{.Title}}&lt;h1&gt;"
+
+> `var html string = “&lt;h1&gt;{{.Title}}&lt;h1&gt;”`
 >
 > `var html string`
-> html = "&lt;h1&gt;{{.Title}}&lt;h1&gt;"
+>
+> `html = “&lt;h1&gt;{{.Title}}&lt;h1&gt;”`
 
 ```go
 t, err := template.New("index").Parse(html)
 ```
 
 Usamos la función `New` para crear un nuevo `template` llamado `index` y
-`Parse` para convertir el string “<h1>{{.Title}}<h1/>” a una instancia `Template`.
+`Parse` para convertir el string `<h1>{{.Title}}<h1/>` a una instancia `Template`.
 
 ```go
 t, err := template.New("index").Parse(html)
