@@ -87,11 +87,12 @@ si `err` es diferente de `nil` significa que algo falló y
 debemos manejar u omitir el error.
 
 > Si deseamos omitir el error usamos `_`:
+>
 > `t, _ := template.New(“index”).Parse(html)`
 
 Si existe un error, entonces usamos `log.Printf` para escribir
-en la terminal el mensaje: “failed to parse index template, error: %v”
-(falló cuando se intento analizar el template index, error: [aquí ira el mensaje de error]).
+en la terminal el mensaje: `failed to parse index template, error: %v`
+(falló cuando se intento analizar el template index, error: [aquí irá el mensaje de error]).
 
 > Usamos:
 > `log.Println` para escribir en el `standard error` por defecto.
