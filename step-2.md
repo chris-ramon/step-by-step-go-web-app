@@ -95,6 +95,7 @@ en la terminal el mensaje: `failed to parse index template, error: %v`
 (falló cuando se intento analizar el template index, error: [aquí irá el mensaje de error]).
 
 > Usamos:
+>
 > `log.Println` para escribir en el `standard error` por defecto.
 >
 > `log.Printf` similar a `log.Println` más la posibilidad de dar formato al string
@@ -107,7 +108,7 @@ data := map[string]string{
 ```
 
 Usamos la estructura de datos del tipo `map` para crear una variable `data`
-que contendrá llaves y valores del tipo `string`.
+que contiene llaves y valores del tipo `string`.
 
 ```go
 if err := t.Execute(w, data); err != nil {
