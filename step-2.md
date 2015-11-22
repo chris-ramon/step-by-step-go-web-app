@@ -96,6 +96,7 @@ en la terminal el mensaje: `failed to parse index template, error: %v`
 
 > Usamos:
 > `log.Println` para escribir en el `standard error` por defecto.
+>
 > `log.Printf` similar a `log.Println` más la posibilidad de dar formato al string
 > y reemplazar variables por valores.
 
