@@ -2,8 +2,8 @@
 
 En esta segunda parte:
 
-- Extenderemos el `IndexHandler` para que pueda responder `html` en vez de `text`.
-- Aprenderemos sobre el control de errores y la estructura de datos `map`.
+- Extendemos `IndexHandler` para que emitir `html` en vez de `text`.
+- Aprendemos sobre el control de errores y la estructura de datos `map`.
 
 ```go
 package main
@@ -141,5 +141,5 @@ curl http://localhost:8080/
 <h1>Store App! :)<h1/>
 ```
 
-A continuación el link al código de esta primera parte:
+A continuación el link al código de esta segunda parte:
 [https://github.com/chris-ramon/go-workshop/blob/step-2/store/main.go](https://github.com/chris-ramon/go-workshop/blob/step-2/store/main.go)
