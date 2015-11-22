@@ -59,11 +59,11 @@ definiremos seguidamente.
 
 > También podemos declarar e inicializar la variable previa de las siguientes formas:
 
-> `var html string = “&lt;h1&gt;{{.Title}}&lt;h1&gt;”`
+> `var html string = "<h1>{{.Title}}<h1/>"`
 >
 > `var html string`
 >
-> `html = “&lt;h1&gt;{{.Title}}&lt;h1&gt;”`
+> `html = "<h1>{{.Title}}<h1/>"`
 
 ```go
 t, err := template.New("index").Parse(html)
