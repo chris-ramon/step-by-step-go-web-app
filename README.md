@@ -7,9 +7,17 @@ A step by step tutorial of how to build a web app with Go, currently being writt
 - [ ] Translate steps to English.
 
 
-#### Step 1
-- initial project files and directories
+#### [Step 1](https://github.com/chris-ramon/go-workshop/blob/master/step-1.md)
+Summary:
+- project files and dirs
 - introduction to `package` and `import`
-- web server
-- `net/http` handler
-- usage of `log`
+- basic web server
+- `net/http` handler usage
+- `log` usage
+
+
+#### [Step 2](https://github.com/chris-ramon/go-workshop/blob/master/step-2.md)
+Summary:
+- `text/template` new, parse & execute
+- introduction to errors
+- `map` usage
