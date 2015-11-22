@@ -83,8 +83,11 @@ if err != nil {
 
 El segundo valor que retorna `Parse` es del tipo `error`,
 usamos la sentencia `if` para saber si contiene un valor,
-si este es `nil` quiere decir que no hubo error al ejecutarse
-la función `Parse`.
+si `err` es diferente de `nil` significa que algo falló y
+debemos manejar u omitir el error.
+
+> Si deseamos omitir el error usamos `_`:
+> `t, _ := template.New(“index”).Parse(html)`
 
 Si existe un error, entonces usamos `log.Printf` para escribir
 en la terminal el mensaje: “failed to parse index template, error: %v”
