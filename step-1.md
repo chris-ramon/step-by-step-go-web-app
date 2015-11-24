@@ -67,7 +67,7 @@ import (
 )
 ```
 
-Define una función `func main` - se usa: `log.Println` para escribir en la `terminal` el mensaje: `server running on :8080` y `log.Fatal` escribirá el potencial error al invocar: `http.ListenAndServe`.
+Define una función `func main`, `log.Println` escribirá en la `terminal` el string: `server running on :8080` y `log.Fatal` escribirá el potencial error al invocar `http.ListenAndServe`.
 
 Finalmente `http.ListenAndServe` inicia un servidor web en el puerto `8080` - se usa `nil` como último argumento para usar el [HTTP request multiplexer](https://golang.org/pkg/net/http/#ServeMux) por defecto:
 
