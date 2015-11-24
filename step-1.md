@@ -102,7 +102,7 @@ func main() {
 }
 ```
 
-###### Explicación:
+##### Explicación:
 
 Define un [`handler`](https://golang.org/pkg/net/http/#Handler) para la raíz `/`
 
@@ -134,7 +134,7 @@ Hora de ejecutar el programa `store` :
 go run main.go
 ```
 
-###### Terminal
+##### Terminal
 ```
 2015/11/19 05:10:23 server running on :8080
 ```
@@ -145,7 +145,7 @@ Realiza un `request` al servidor web usando el comando `curl` :
 curl http://localhost:8080/
 ```
 
-###### Terminal
+##### Terminal
 ```
 Store App!
 ```
