@@ -1,30 +1,39 @@
 ### Construyendo una web app con Go desde cero - Parte #1
 
-Esta es la primera parte de una serie de guías, que describen paso a paso como construir una aplicación web con Go.
+Esta es la primera parte de una serie de guías, que describen paso a paso cómo construir una web app usando [Go](http://golang.org/).
 
-La app web que construiremos es una e-commerce, la cual contiene varias características esenciales para aprender:
+La web app es un e-commerce - con el cual puedes aprender:
 
 - Sintaxis, fundamentos y características importantes de Go.
-- Como resolver problemas comunes en web apps usando Go.
+- Cómo resolver problemas comunes en web apps usando Go.
 
-Empecemos!
 ***
 
-Creamos el directorio de nuestro proyecto, llamado `store` (tienda) y seguidamente creamos el archivo principal de nuestro programa, el cual llamaremos `main.go`, este contendrá el código de nuestro programa que se ejecutará primero.
+Empecemos!
+
+Crea el directorio de la web app llamado: `store` y el archivo principal del mismo llamado: `main.go` :
+
 ```bash
 mkdir store && cd $_ && touch main.go
 ```
+
 ##### Explicación:
+
 ```
 mkdir store -- Crea el directorio `store`
 
+cd $_ -- Cambia el directorio actual al recién creado
+
 && -- Agrupa comandos shell
+
 
 touch main.go -- Crea el archivo `main.go`
 ```
+
 ***
 
-A continuación creamos el servidor web principal de nuestra aplicación, agregamos el siguiente código al archivo `main.go`.
+Agregar el siguiente código a `main.go` :
+
 ```go
 package main
 
@@ -38,15 +47,19 @@ func main() {
 	log.Fatal(http.ListenAndServe(":8080", nil))
 }
 ```
+
 ##### Explicación:
+
+El archivo `main.go` pertenece al paquete `main` :
+
 ```go
 package main
 ```
 
-Cada archivo `*.go` debe pertenecer a un paquete, en este caso `main.go`
-pertenece al paquete `main`.
+> Todos los programas en Go tienen un paquete `package main` y una función `func main` - este último indica el inicio de ejecución del programa.
 
-> Todos los programas en Go tienen un paquete `main` (`package main`) y dentro una función `main` (`func main`), los cuales indican el inicio de ejecución de nuestro programa.
+
+Importa dos paquetes de la [biblioteca estándar](https://golang.org/pkg/) de Go: [`log`](https://golang.org/pkg/log/) y [`net/http`](https://golang.org/pkg/net/http/):
 
 ```go
 import (
@@ -55,8 +68,9 @@ import (
 )
 ```
 
-Importamos otros paquetes usando el keyword `import`, en este caso importamos dos paquetes de la biblioteca estándar de Go: `log` y `net/http`.
+Define una función `func main`, seguidamente se usa: `log.Println` para escribir en el `terminal` un mensaje: `server running on :8080` y `log.Fatal` escribirá el potencial error si fallara `http.ListenAndServe(":8080", nil)`.
 
+Finalmente `http.ListenAndServe` inicia un servidor web en el puerto `8080` - se usa `nil` como último argumento para usar el [HTTP request multiplexer](https://golang.org/pkg/net/http/#ServeMux) por defecto:
 
 ```go
 func main() {
@@ -65,16 +79,10 @@ func main() {
 }
 ```
 
-
-Dentro de la función main, primero usamos la función `log.Println` para imprimir en la `terminal` un mensaje de información: `servidor ejecutándose en :8080`.
-
-Seguidamente usamos la función `log.Fatal` para escribir en la terminal el error que posiblemente retorne la función `http.ListenAndServe`.
-
-Finalmente usamos `http.ListenAndServe` para iniciar el servidor web de nuestra app `store`, en este caso indicamos por el momento específicamente que debe atender peticiones en el puerto `8080`, y usamos `nil` como último argumento porque usamos el [HTTP request multiplexer](https://golang.org/pkg/net/http/#ServeMux) por defecto, el cual puede ser reemplazado luego, por ahora es suficiente, ya que nos ayuda a definir las rutas (urls) de manera simple.
-
 ***
 
-A continuación agregamos la ruta principal de nuestro servidor web y la función que se encarga de resolver la misma.
+
+Editar el código en `main.go` :
 
 ```go
 package main
@@ -96,11 +104,18 @@ func main() {
 ```
 
 ###### Explicación:
+
+Define un [`handler`](https://golang.org/pkg/net/http/#Handler) para la raíz `/` - `IndexHandler` se ejecutará cuando existan [`requests`](https://golang.org/pkg/net/http/#Request) del tipo: `http://localhost:8080/` :
+
 ```go
 http.HandleFunc("/", IndexHandler)
 ```
 
-Usamos la función `http.HandleFunc` para definir la ruta y la función que se ejecuta cuando existe una petición para la misma, definimos como primer argumento `"/"` que indica la raíz del servidor web y como segundo argumento `IndexHandler` que es la función que se ejecutará cuando existan peticiones del tipo: `http://localhost:8080/` .
+Define la función `func IndexHandler` - siendo sus parámetros: 
+- `w http.ResponseWriter` -- Usado para escribir la respuesta a un `request`.
+- `r *http.Request` -- Usado para obtener información sobre el `request`.
+
+Finalmente se invoca `w.Write` - está función recibe como argumento un arreglo de tipo `bytes` :
 
 ```go
 func IndexHandler(w http.ResponseWriter, r *http.Request) {
@@ -108,17 +123,12 @@ func IndexHandler(w http.ResponseWriter, r *http.Request) {
 }
 ```
 
-Definimos la función `IndexHandler`, el tiene como parámetros: 
-- `w http.ResponseWriter` -- Lo usamos para escribir la respuesta a una petición.
-- `r *http.Request` -- Lo usaremos para obtener información sobre una petición.
-
-Finalmente, la función `w.Write` recibe como argumento `bytes`, deseamos escribir el texto `Store App` como respuesta de la petición, entonces necesitamos convertir este texto (`string`) a `bytes`, por eso usamos `[]byte("Store App")`.
-
-> Usamos el carácter `*` para indicar que la variable será de tipo pointer (puntero).
+> Se usa el carácter `*` para indicar que la variable es del tipo [`pointer`](https://tour.golang.org/moretypes/1).
 
 ***
 
-Es hora de ejecutar nuestro programa `store`
+Hora de ejecutar el programa `store` :
+
 ```go
 go run main.go
 ```
@@ -128,7 +138,7 @@ go run main.go
 2015/11/19 05:10:23 server running on :8080
 ```
 
-Seguidamente realizamos la primera petición web a nuestro servidor, para ello usamos el comando `curl`.
+Realiza un `request` al servidor web usando el comando `curl` :
 
 ```
 curl http://localhost:8080/
@@ -139,9 +149,10 @@ curl http://localhost:8080/
 Store App!
 ```
 
-> Usamos el comando `go run` para compilar y ejecutar nuestros programas.
+> El comando: `go run` compila y ejecuta los programas.
 
 ***
 
 A continuación el link al código de esta primera parte:
+
 [https://github.com/chris-ramon/go-workshop/blob/step-1/store/main.go](https://github.com/chris-ramon/go-workshop/blob/step-1/store/main.go)
