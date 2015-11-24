@@ -26,7 +26,6 @@ cd $_ -- Cambia el directorio actual al recién creado
 
 && -- Agrupa comandos shell
 
-
 touch main.go -- Crea el archivo `main.go`
 ```
 
@@ -68,7 +67,7 @@ import (
 )
 ```
 
-Define una función `func main`, seguidamente se usa: `log.Println` para escribir en el `terminal` un mensaje: `server running on :8080` y `log.Fatal` escribirá el potencial error si fallara `http.ListenAndServe(":8080", nil)`.
+Define una función `func main` - se usa: `log.Println` para escribir en la `terminal` el mensaje: `server running on :8080` y `log.Fatal` escribirá el potencial error al invocar: `http.ListenAndServe`.
 
 Finalmente `http.ListenAndServe` inicia un servidor web en el puerto `8080` - se usa `nil` como último argumento para usar el [HTTP request multiplexer](https://golang.org/pkg/net/http/#ServeMux) por defecto:
 
@@ -105,15 +104,17 @@ func main() {
 
 ###### Explicación:
 
-Define un [`handler`](https://golang.org/pkg/net/http/#Handler) para la raíz `/` - `IndexHandler` se ejecutará cuando existan [`requests`](https://golang.org/pkg/net/http/#Request) del tipo: `http://localhost:8080/` :
+Define un [`handler`](https://golang.org/pkg/net/http/#Handler) para la raíz `/`
+
+`IndexHandler` se ejecutará cuando existan [`requests`](https://golang.org/pkg/net/http/#Request) del tipo: `http://localhost:8080/` :
 
 ```go
 http.HandleFunc("/", IndexHandler)
 ```
 
 Define la función `func IndexHandler` - siendo sus parámetros: 
-- `w http.ResponseWriter` -- Usado para escribir la respuesta a un `request`.
-- `r *http.Request` -- Usado para obtener información sobre el `request`.
+- `w http.ResponseWriter` -- Para escribir la respuesta al `request`.
+- `r *http.Request` -- Para obtener información sobre el `request`.
 
 Finalmente se invoca `w.Write` - está función recibe como argumento un arreglo de tipo `bytes` :
 
@@ -149,7 +150,7 @@ curl http://localhost:8080/
 Store App!
 ```
 
-> El comando: `go run` compila y ejecuta los programas.
+> El comando: [`go run`](https://golang.org/cmd/go/#hdr-Compile_and_run_Go_program) compila y ejecuta los programas.
 
 ***
 
